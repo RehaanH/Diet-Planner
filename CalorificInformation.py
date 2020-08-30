@@ -2,13 +2,13 @@ import math
 
 #This class will contain information required to evaluate an individuals suitable calorific intake and BMI
 class personalCalorieInfo:
-    def _init_(self,basalMetabolicRate,exerciseCalories,recommendedIntake,BMI,weightLevel,recommendedWeightChange):
-        self.__basalMetabolicRate = basalMetabolicRate
-        self.__exerciseCalories = exerciseCalories
-        self.__recommendedIntake = recommendedIntake
-        self.__BMI = BMI
-        self.__weightLevel = weightLevel
-        self.__recommendedWeightChange = recommendedWeightChange
+    def __init__(self,):
+        self.__basalMetabolicRate = 0
+        self.__exerciseCalories = 0
+        self.__recommendedIntake = 0
+        self.__BMI = 0
+        self.__weightLevel = 0
+        self.__recommendedWeightChange = 0
 
     #This method will be used to evaluate an individuals resting metabolism.
     #The weight has to be in kg while height should be in m
