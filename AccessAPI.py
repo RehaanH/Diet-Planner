@@ -18,10 +18,19 @@ def foodSearchResults(foodKeyword):
 
     # Adding the name of the search result and the calorific value/category
     for listItem in resultsDict['hints']:
-        results[listItem['food']['label']] = (listItem['food']['nutrients']["ENERC_KCAL"], listItem['food']['category'])
+        try:
+            listItem['food']['nutrients']['ENERC_KCAL']
+        except:
+            print("\nSomething went wrong")
+            return results
+        try:
+            listItem['food']['category']
+        except:
+            print("\nSomething went wrong")
+            return results
 
+        results[listItem['food']['label']] = (listItem['food']['nutrients']['ENERC_KCAL'], listItem['food']['category'])
     return results
-
 
 # data = {"quantity": 1,
 #       "measureURI": "http://www.edamam.com/ontologies/edamam.owl#Measure_unit",
