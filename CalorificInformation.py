@@ -4,7 +4,6 @@ import math
 class personalCalorieInfo:
     def __init__(self,):
         self.__basalMetabolicRate = 0
-        self.__exerciseCalories = 0
         self.__recommendedIntake = 0
         self.__BMI = 0
         self.__weightLevel = 0
@@ -17,7 +16,7 @@ class personalCalorieInfo:
             self.__basalMetabolicRate =int( 655.1+(9.563*weight)+(1.85*height)-(4.676*age))
         else:
             self.__basalMetabolicRate =int(66.47+(13.75*weight)+(5.003*100*height)-(6.755*age))
-        print("\nYou currently burn around ", self.__basalMetabolicRate ," kiloCalories daily without any exercise.\n")
+        print("\nYou currently burn around ", self.__basalMetabolicRate ," kiloCalories daily without any exercise.")
 
     #Gets the basal Metabolic Rate
     def getBMR(self):
@@ -38,39 +37,39 @@ class personalCalorieInfo:
         currentBMI = self.__BMI
         if currentBMI <= 15:
             self.__weightLevel = "ST"
-            print("You are severely underweight. It is strongly recommended that you increase your daily calorie intake.\n")
-            print("While specific values may vary by the individual, it is recommended that you gain about ", self.__recommendedWeightChange, " Kilograms")
+            print("You are severely underweight. It is strongly recommended that you increase your daily calorie intake.")
+            print("While specific values may vary by the individual, it is recommended that you gain about ", self.__recommendedWeightChange, " Kilograms.")
 
         elif currentBMI <= 16:
             self.__weightLevel = "MT"
-            print("You are moderately underweight. It is recommended that you increase your daily calorie intake.\n")
-            print("While specific values may vary by the individual, it is recommended that you gain about ", self.__recommendedWeightChange, " Kilograms")
+            print("You are moderately underweight. It is recommended that you increase your daily calorie intake.")
+            print("While specific values may vary by the individual, it is recommended that you gain about ", self.__recommendedWeightChange, " Kilograms.")
         elif currentBMI <= 18:
             self.__weightLevel = "MiT"
-            print("You are slightly underweight. You should consider increasing your daily calorie intake. \n ")
-            print("While specific values may vary by the individual, it is recommended that you gain about ",  self.__recommendedWeightChange, " Kilograms")
+            print("You are slightly underweight. You should consider increasing your daily calorie intake. ")
+            print("While specific values may vary by the individual, it is recommended that you gain about ",  self.__recommendedWeightChange, " Kilograms.")
         elif currentBMI <=  24:
             self.__weightLevel = "NORM"
-            print("You are in a healthy body mass range! It is recommended that you balance your daily calorie intake.\n")
+            print("You are in a healthy body mass range! It is recommended that you balance your daily calorie intake.")
         elif currentBMI <= 29:
             self.__weightLevel = "PO"
-            print("You are slightly overweight. You should consider decreasing your daily calorie intake. \n")
+            print("You are slightly overweight. You should consider decreasing your daily calorie intake. ")
             print("While specific values may vary by the individual, it is recommended that you lose about ",
-                  self.__recommendedWeightChange , " Kilograms")
+                  self.__recommendedWeightChange , " Kilograms.")
         elif currentBMI <= 34:
             self.__weightLevel = "OI"
-            print("You are overweight and at risk of becoming moderately obese. It is recommended that you lower your daily calorie intake. \n")
+            print("You are overweight and at risk of becoming moderately obese. It is recommended that you lower your daily calorie intake. ")
             print("While specific values may vary by the individual, it is recommended that you lose about ",
-                  self.__recommendedWeightChange, " Kilograms")
+                  self.__recommendedWeightChange, " Kilograms.")
         elif currentBMI <= 39:
             self.__weightLevel = "OII"
-            print("Your weight indicates that you are obese. It is strongly recommended that you lower your daily calorie intake. \n")
+            print("Your weight indicates that you are obese. It is strongly recommended that you lower your daily calorie intake. ")
             print("While specific values may vary by the individual, it is recommended that you lose about ",
-                  self.__recommendedWeightChange, " Kilograms")
+                  self.__recommendedWeightChange, " Kilograms.")
         else:
             self.__weightLevel = "OIII"
-            print("Your weight indicates that you are severly obese. It is strongly recommended that you lower your daily calorie intake . \n")
-            print("You are at significant risk of obesity related deceases. \n")
+            print("Your weight indicates that you are severly obese. It is strongly recommended that you lower your daily calorie intake . ")
+            print("You are at significant risk of obesity related deceases.")
             print("While specific values may vary by the individual, it is recommended that you lose about ",
-                  self.__recommendedWeightChange, " Kilograms")
+                  self.__recommendedWeightChange, " Kilograms.")
 
