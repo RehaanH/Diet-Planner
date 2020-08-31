@@ -188,5 +188,4 @@ occupationalActivities = {
 }
 
 
-print(outdoorActivities[list(outdoorActivities)[0]])
 

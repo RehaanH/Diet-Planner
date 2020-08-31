@@ -20,6 +20,7 @@ class trieNode:
 #Insert a new word into the trie structure
 def insertInTrie(root,activityName,activityIndex):
     insertHelper = root
+    activityName = activityName.lower()
     for letter in activityName:
 
         #If a new node is required for the character
@@ -55,7 +56,6 @@ def traverseTrie(root, keyword):
     nodeFound = False
     while i<len(keyword) and not nodeFound:
         if keyword[i] in currentNode.nextNodes:
-            print(keyword[i])
             currentNode = currentNode.nextNodes[keyword[i]]
             i+=1
         else:
@@ -98,9 +98,7 @@ for activity in occupationalActivities:
     insertInTrie(trieRoot,activity,index)
     index += 1
 
-curr = traverseTrie(trieRoot, "Autosdsd")
-indices = []
-findWords(curr,indices)
+
 
 
 
