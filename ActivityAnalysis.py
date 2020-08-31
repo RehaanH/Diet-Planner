@@ -184,6 +184,8 @@ occupationalActivities = {
 
 # Function which prints out the activity details(based on the indexing) that user has logged in
 def printWorkout(chosenActivities, activityCalories):
+    if len(chosenActivities) == 0:
+        print("No activities chosen")
     for activity in chosenActivities:
         if activity < 100:
             print("\nGym Activities:")
