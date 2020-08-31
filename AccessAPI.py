@@ -22,12 +22,12 @@ def foodSearchResults(foodKeyword):
             listItem['food']['nutrients']['ENERC_KCAL']
         except:
             print("\nSomething went wrong")
-            return results
+            return {}
         try:
             listItem['food']['category']
         except:
             print("\nSomething went wrong")
-            return results
+            return {}
 
         results[listItem['food']['label']] = (listItem['food']['nutrients']['ENERC_KCAL'], listItem['food']['category'])
     return results
