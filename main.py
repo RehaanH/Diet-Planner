@@ -114,7 +114,7 @@ sumTime = 0
 
 while not status == "done":
     if status == "menu":
-        print("Please type in the physical activity you would like to add for the following day.")
+        print("\nPlease type in the physical activity you would like to add for the following day.")
         print("Activities from the following categories are available:")
         print("1.Gym Activities (Weight lifting, Aerobics ...)")
         print("2.Training and Sports (Running, Swimming, Archery...)")
@@ -386,7 +386,7 @@ while not inputStatus == "done":
                     # If all inputs have been valid
                     if massValid and float(foodMass) > 0:
                         massValid = True
-                        caloriesFromItem = int(foodResults[list(foodResults)[choice-1]][0]) * int(float(foodMass)/100)
+                        caloriesFromItem = int(int(foodResults[list(foodResults)[choice-1]][0]) * (float(foodMass)/100))
                         print("You will be consuming ", caloriesFromItem, "calories from this item.")
 
                         #Warning the user if choosing this item will take their calorie intake above the rec. limit
