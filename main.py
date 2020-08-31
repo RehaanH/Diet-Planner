@@ -5,14 +5,15 @@ from ActivityAnalysis import outdoorActivities
 from ActivityAnalysis import homeAndDailyActivities
 from ActivityAnalysis import homeRepairActivities
 from ActivityAnalysis import occupationalActivities
+from ActivityAnalysis import printWorkout
 from KeywordSearch import trieRoot
 from KeywordSearch import traverseTrie
 from KeywordSearch import findWords
+from AccessAPI import foodSearchResults
 
+# This is the main file that will run the program
 
-#This is the main file that will run the program
-
-#Getting information from the user and error checking
+# Getting information from the user and error checking
 print("Please fill out the following details for the program to evaluate your current health status")
 
 sex = input("Sex(Male/Female):").lower().strip()
@@ -26,7 +27,7 @@ ageValid = False
 while not ageValid:
     numericValid = True
     if not age.isnumeric():
-        #Check if the number is a decimal value (which is acceptable)
+        # Check if the number is a decimal value (which is acceptable)
         try:
             float(age)
         except:
@@ -36,7 +37,8 @@ while not ageValid:
 
     if numericValid and (not (5 <= float(age) <= 100)):
         ageValid=False
-        print("Please enter a value between 5 and 100. This program does not work for individuals outside of this age range.")
+        print("Please enter a value between 5 and 100. "
+              "This program does not work for individuals outside of this age range.")
         age = (input("Age (in numerical years):"))
     elif numericValid:
         ageValid = True
@@ -49,7 +51,7 @@ heightValid = False
 while not heightValid:
     numericValid = True
     if not height.isnumeric():
-         #Check if the number is a decimal value (which is acceptable)
+         # Check if the number is a decimal value (which is acceptable)
          try:
              float(height)
          except:
@@ -94,7 +96,7 @@ individualMain.calculateBMR(age,weight,height,sex)
 individualMain.BMIcalculator(weight,height)
 individualMain.assessBMI()
 
-#Accounting for the fact that body mass will affect calorie burn rates
+# Accounting for the fact that body mass will affect calorie burn rates
 burnModifier = 0
 if weight < 65:
     burnModifier = 1
@@ -122,7 +124,7 @@ while not status == "done":
         print("6.Occupational Activities (Computer work, Sitting in Class...)")
         print("Type in a number to see all the options listed.")
         print('Type in "Exit" to finish logging activities.')
-        searchTerm = input("Search term:")
+        searchTerm = input("Search term:").lower().strip()
         status = "list all"
         try:
             float(searchTerm)
@@ -133,7 +135,7 @@ while not status == "done":
         if searchTerm == "exit":
             status = "done"
 
-    #Listing all the activity options in this program
+    # Listing all the activity options in this program
     if status == "list all":
         print("\nThis is the entire activities list. The calories listed are values per 30 mins engaged.")
         i = 0
@@ -175,7 +177,7 @@ while not status == "done":
         print("\n")
         status = "menu"
 
-    #Listing the results of the search query. search methods are in the the KeywordSearch.py file
+    # Listing the results of the search query. search methods are in the the KeywordSearch.py file
     if status == "list results":
         print("The following results were found from your search term.")
         print("Please type in the number of the option you want to choose", end=" ")
@@ -245,7 +247,7 @@ while not status == "done":
             try:
                 float(choice)
             except:
-                if choice.lower() =="menu":
+                if choice.lower().strip() =="menu":
                     status = "menu"
                     inputValid = True
                 else:
@@ -253,12 +255,12 @@ while not status == "done":
                     numeral = False
                     choice = input("Please numerically enter & confirm the number of your selection:")
 
-            #Saving the users choice if it was within the original number of options
+            # Saving the users choice if it was within the original number of options
             if not inputValid and numeral:
                 choice = int(choice)
                 if choice in indexCache.keys():
                     inputValid = True
-                    #Asking the user for the duration of the activity that they engage in
+                    # Asking the user for the duration of the activity that they engage in
                     durationValid = False
                     while not durationValid:
                         durationValid = True
@@ -290,58 +292,145 @@ while not status == "done":
                     choice = input("Please numerically enter & confirm the number of your selection:")
 
 
-#Printing the final activity details for the day
+# Printing the final activity details for the day
 print("\nHere is a summary of your activities for the day: ")
 print("Note- The calories burned are approximations based on your body mass and type of activity")
 activityCalories = 0
-for activity in chosenActivities:
-    if(activity < 100):
-        print("\nGym Activities:")
-        time = chosenActivities[activity]
-        act = list(gymActivities)[activity]
-        print(act, ", time engaged:", time, " minutes"
-            ", calories burned:", gymActivities[act] * (time/30) )
-        activityCalories += (gymActivities[act] * (time/30))
+activityCalories = printWorkout(chosenActivities, activityCalories)
 
-    elif (activity < 200):
-        print("\nTraining And Sport:")
-        time = chosenActivities[activity]
-        act = list(trainingAndSport)[activity-100]
-        print(act, ", time engaged:", time, " minutes"
-            ", calories burned:", trainingAndSport[act] * (time / 30))
-        activityCalories += (trainingAndSport[act] * (time / 30))
+overallCalorieBurn = int(activityCalories + individualMain.getBMR())
+print("\nApproximate overall calorie burnout for the day:", overallCalorieBurn)
 
-    elif (activity < 300):
-        print("\nOutdoor Activities:")
-        time = chosenActivities[activity]
-        act = list(outdoorActivities)[activity-200]
-        print(act, ", time engaged:", time, " minutes"
-            ", calories burned:", outdoorActivities[act] * (time / 30))
-        activityCalories += (outdoorActivities[act] * (time / 30))
+# Calculating the recommended daily calorie intake
+recommendedIntake = 0
+weightRange = individualMain.getWL()
 
-    elif (activity < 400):
-        print("\nHome And Daily Activities:")
-        time = chosenActivities[activity]
-        act = list(homeAndDailyActivities)[activity-300]
-        print(act, ", time engaged:", time, " minutes"
-            ", calories burned:", homeAndDailyActivities[act] * (time / 30))
-        activityCalories += (homeAndDailyActivities[act] * (time / 30))
+if weightRange == "PO" or weightRange == "OI" or weightRange == "OII" or weightRange == "OIII":
+    recommendedIntake = overallCalorieBurn - 750
+    print("If you wish to lose weight, your recommended daily calorie intake is:", recommendedIntake)
+elif weightRange == "NORM":
+    recommendedIntake = overallCalorieBurn
+    print("To maintain your weight, your recommended daily calorie intake is:", recommendedIntake)
+else:
+    recommendedIntake = overallCalorieBurn + 750
+    print("If you wish to gain weight, your recommended daily calorie intake is:", recommendedIntake)
 
-    elif (activity < 500):
-        print("\nHome Repair Activities:")
-        time = chosenActivities[activity]
-        act = list(homeRepairActivities)[activity-400]
-        print(act, ", time engaged:", time, " minutes"
-            ", calories burned:", homeRepairActivities[act] * (time / 30))
-        activityCalories += (homeRepairActivities[act] * (time / 30))
 
-    elif (activity < 600):
-        print("\nOccupational Activities:")
-        time = chosenActivities[activity]
-        act = list(occupationalActivities)[activity-500]
+# Letting the user choose their meals for the next day
+print("\nNow let's choose your diet for the next day.")
+inputStatus = "search"
+foodResults = {}
+foodChosen = {}
+currMealCalories = 0
+while not inputStatus == "done":
+    # The stage where the user types in the search term
+    if inputStatus == "search":
+        #Printing out the current meal plan details.
+        if not len(foodChosen) == 0:
+            print("\nThe current food items you have chosen are:")
+            currMealCalories = 0
+            for item in foodChosen:
+                currMealCalories += foodChosen[item][0]
+                print(item, ", calories:", foodChosen[item][0], ", amount:", foodChosen[item][1], "grams ,category:",
+                      foodChosen[item][2])
+            if currMealCalories > recommendedIntake:
+                print("You will be consuming ", currMealCalories - recommendedIntake,
+                      " calories more than your recommended daily intake.")
+            else:
+                print("You will be consuming ", recommendedIntake - currMealCalories,
+                      " calories less than your recommended daily intake.")
+            print('\nType in "Exit" to finish the program, or')
 
-        print(act, ", time engaged:", time, " minutes"
-            ", calories burned:", occupationalActivities[act] * (time / 30))
-        activityCalories += (occupationalActivities[act] * (time / 30))
+        searchTerm = input("\nPlease enter a type of food that you would like to consume the next day:").strip().lower()
+        if searchTerm == "exit":
+            inputStatus = "done"
+        else:
+            foodResults = foodSearchResults(searchTerm)
+            if len(foodResults) == 0:
+                print("No results were found for your search. Please try again.")
+            else:
+                inputStatus = "choose result"
 
-print("Approximate overall calorie burnout for the day:", int(activityCalories + individualMain.getBMR()))
+    #The stage where the user chooses from the search results
+    if inputStatus == "choose result":
+        print("\nPick one of the results from your search term by entering the number numerically.")
+        print('Type "back" to go back to your search')
+        i = 0
+        for food in foodResults:
+            i+=1
+            print(i, ".", food, ", Category:", foodResults[food][1], ", Calories per 100g:", int(foodResults[food][0]))
+        choice = input("Enter the number of your choice:").strip().lower()
+
+        exitChoose = False
+        try:
+            float(choice)
+        except:
+            exitChoose = True
+            if choice == "back":
+                inputStatus = "search"
+            else:
+                print("Please enter a valid search term")
+
+        if not exitChoose:
+            choice = int(choice)
+            if choice > 0 and choice <= len(foodResults):
+                massValid = False
+                while not massValid:
+                    massValid = True
+                    foodMass = input("How many grams of this item will you consume for your serving?")
+                    try:
+                        float(foodMass)
+                    except:
+                        print("Please enter a numerical value.")
+                        massValid = False
+                    # If all inputs have been valid
+                    if massValid and float(foodMass) > 0:
+                        massValid = True
+                        caloriesFromItem = int(foodResults[list(foodResults)[choice-1]][0]) * int(float(foodMass)/100)
+                        print("You will be consuming ", caloriesFromItem, "calories from this item.")
+
+                        #Warning the user if choosing this item will take their calorie intake above the rec. limit
+                        proceed = True
+                        if caloriesFromItem + currMealCalories > recommendedIntake:
+                            proceedValid = False
+                            print("Consuming this item will take you ",
+                                  caloriesFromItem + currMealCalories - recommendedIntake,
+                                  " above your recommended daily calorie intake.")
+                            print('Are you sure you wish to proceed? Type "yes" to confirm, "no" to go back to search.')
+
+                            while not proceedValid:
+                                confirmation = input("Confirm:").lower().strip()
+                                if confirmation == "no":
+                                    proceed = False
+                                    inputStatus = "search"
+                                    proceedValid = True
+                                elif confirmation == "yes":
+                                    proceedValid = True
+                                else:
+                                    print("\nPlease enter either yes or no")
+
+                        if proceed:
+                            chosenItem = list(foodResults)[choice-1]
+                            # list: calories, mass, category
+                            foodChosen[chosenItem] = [caloriesFromItem, foodMass, foodResults[chosenItem][1]]
+                            inputStatus = "search"
+
+                    else:
+                        print("\nPlease enter a valid number.")
+            else:
+                print("\nPlease enter a number within the range of choices.")
+
+
+print("\nHere is a summary of your details for the day:")
+print("\nActivity details:")
+printWorkout(chosenActivities, 0)
+
+print("\nFood consumption for the day:")
+for item in foodChosen:
+    print(item, ", calories: ", foodChosen[item][0], ", amount: ", foodChosen[item][1], "grams ,category: ",
+          foodChosen[item][2])
+
+print("\nYour approximate overall calorie consumption for the planned day is ", overallCalorieBurn)
+print("Your recommended daily calorie intake is ", recommendedIntake, " calories.")
+print("Your calorie intake for the planned day is ", currMealCalories)
+
