@@ -1,6 +1,6 @@
-#Creating dictionaries according to the type of activity being performed
-#The key will be the activity and the value will be the estimation of calories burned for an individual below 65kg
-#Source:https://www.health.harvard.edu/diet-and-weight-loss/calories-burned-in-30-minutes-of-leisure-and-routine-activities
+# Creating dictionaries according to the type of activity being performed
+# The key will be the activity and the value will be the estimation of calories burned for an individual below 65kg
+# Source:https://www.health.harvard.edu/diet-and-weight-loss/calories-burned-in-30-minutes-of-leisure-and-routine-activities
 
 gymActivities = {
     "Weight Lifting: general": 90,
@@ -41,7 +41,7 @@ trainingAndSport = {
     "Tai Chi": 120,
     "Volleyball: competitive, gymnasium play": 120,
     "Walking: 3.5 mph (17 min/mi)": 120,
-    "Badminton: general": 	135,
+    "Badminton: general": 135,
     "Walking: 4 mph (15 min/mi)": 135,
     "Kayaking": 150,
     "Skateboarding": 150,

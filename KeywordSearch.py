@@ -6,41 +6,40 @@ from ActivityAnalysis import homeRepairActivities
 from ActivityAnalysis import occupationalActivities
 
 
-
 # Making a trie structure for the keyword search
 # This class will contain the structure of a node
 class trieNode:
     def __init__(self):
-        self.index = 0     #A unique index which identifies a word that ends on a node
-        self.charsInChildren = set()  #A set which holds all the characters that are children of the node
-        self.wordEnd = False     #Will be true if a word ends at this node.
-        self.nextNodes = {}  #Will be a dictionary containing a character as the key and next node as the value
+        self.index = 0     # unique index which identifies a word that ends on a node
+        self.charsInChildren = set()  # A set which holds all the characters that are children of the node
+        self.wordEnd = False     # Will be true if a word ends at this node.
+        self.nextNodes = {}  # Will be a dictionary containing a character as the key and next node as the value
 
 
-#Insert a new word into the trie structure
+# Insert a new word into the trie structure
 def insertInTrie(root,activityName,activityIndex):
     insertHelper = root
     activityName = activityName.lower()
     for letter in activityName:
 
-        #If a new node is required for the character
+        # If a new node is required for the character
         if letter not in insertHelper.charsInChildren:
             newNode = trieNode()
             insertHelper.nextNodes[letter] = newNode
             insertHelper.charsInChildren.add(letter)
 
-        #traversing to the next node
+        # traversing to the next node
         insertHelper = insertHelper.nextNodes[letter]
 
 
 
-    #Adds the index at the final node and marks the end of a word
+    # Adds the index at the final node and marks the end of a word
     insertHelper.wordEnd = True
     insertHelper.index = activityIndex
 
 
-#Function which finds the words in the trie that match the keyword
-#All the indices of words that come under a node are stored in indexCache
+# Function which finds the words in the trie that match the keyword
+# All the indices of words that come under a node are stored in indexCache
 def findWords(node, indexCache):
     if node.wordEnd == True:
         indexCache.append(node.index)
@@ -49,7 +48,7 @@ def findWords(node, indexCache):
         for character in node.charsInChildren:
             findWords(node.nextNodes[character], indexCache)
 
-#Function which returns the node that a search term leads to
+# Function which returns the node that a search term leads to
 def traverseTrie(root, keyword):
     currentNode = root
     i = 0
@@ -65,7 +64,7 @@ def traverseTrie(root, keyword):
 
 
 
-#Populating the trie structure
+# Populating the trie structure
 trieRoot = trieNode()
 index = 0
 
