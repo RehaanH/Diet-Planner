@@ -1,8 +1,3 @@
-#750 deficit
-import math
-
-#1.25 above 65 kg 1.25*1.2 above 80
-
 #Creating dictionaries according to the type of activity being performed
 #The key will be the activity and the value will be the estimation of calories burned for an individual below 65kg
 #Source:https://www.health.harvard.edu/diet-and-weight-loss/calories-burned-in-30-minutes-of-leisure-and-routine-activities
