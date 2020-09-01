@@ -192,7 +192,7 @@ def printWorkout(chosenActivities, activityCalories):
             time = chosenActivities[activity]
             act = list(gymActivities)[activity]
             print(act, ", time engaged:", time, " minutes"
-                  ", calories burned:", gymActivities[act] * (time/30) )
+                  ", calories burned:", int(gymActivities[act] * (time/30) ))
             activityCalories += (gymActivities[act] * (time/30))
 
         elif activity < 200:
@@ -200,7 +200,7 @@ def printWorkout(chosenActivities, activityCalories):
             time = chosenActivities[activity]
             act = list(trainingAndSport)[activity-100]
             print(act, ", time engaged:", time, " minutes"
-                  ", calories burned:", trainingAndSport[act] * (time / 30))
+                  ", calories burned:", int(trainingAndSport[act] * (time / 30)))
             activityCalories += (trainingAndSport[act] * (time / 30))
 
         elif activity < 300:
@@ -208,7 +208,7 @@ def printWorkout(chosenActivities, activityCalories):
             time = chosenActivities[activity]
             act = list(outdoorActivities)[activity-200]
             print(act, ", time engaged:", time, " minutes"
-                  ", calories burned:", outdoorActivities[act] * (time / 30))
+                  ", calories burned:", int(outdoorActivities[act] * (time / 30)))
             activityCalories += (outdoorActivities[act] * (time / 30))
 
         elif activity < 400:
@@ -216,7 +216,7 @@ def printWorkout(chosenActivities, activityCalories):
             time = chosenActivities[activity]
             act = list(homeAndDailyActivities)[activity-300]
             print(act, ", time engaged:", time, " minutes"
-                  ", calories burned:", homeAndDailyActivities[act] * (time / 30))
+                  ", calories burned:", int(homeAndDailyActivities[act] * (time / 30)))
             activityCalories += (homeAndDailyActivities[act] * (time / 30))
 
         elif activity < 500:
@@ -224,7 +224,7 @@ def printWorkout(chosenActivities, activityCalories):
             time = chosenActivities[activity]
             act = list(homeRepairActivities)[activity-400]
             print(act, ", time engaged:", time, " minutes"
-                  ", calories burned:", homeRepairActivities[act] * (time / 30))
+                  ", calories burned:", int(homeRepairActivities[act] * (time / 30)))
             activityCalories += (homeRepairActivities[act] * (time / 30))
 
         elif activity < 600:
@@ -233,7 +233,7 @@ def printWorkout(chosenActivities, activityCalories):
             act = list(occupationalActivities)[activity-500]
 
             print(act, ", time engaged:", time, " minutes"
-                  ", calories burned:", occupationalActivities[act] * (time / 30))
+                  ", calories burned:", int(occupationalActivities[act] * (time / 30)))
             activityCalories += (occupationalActivities[act] * (time / 30))
 
     return activityCalories

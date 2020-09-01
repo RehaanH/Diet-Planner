@@ -430,7 +430,7 @@ for item in foodChosen:
     print(item, ", calories: ", foodChosen[item][0], ", amount: ", foodChosen[item][1], "grams ,category: ",
           foodChosen[item][2])
 
-print("\nYour approximate overall calorie consumption for the planned day is ", overallCalorieBurn)
-print("Your recommended daily calorie intake is ", recommendedIntake, " calories.")
-print("Your calorie intake for the planned day is ", currMealCalories)
+print("\nYour approximate overall calorie consumption for the planned day is ", overallCalorieBurn, "calories.")
+print("Your recommended daily calorie intake is ", recommendedIntake, "calories.")
+print("Your calorie intake for the planned day is ", currMealCalories, "calories.")
 
