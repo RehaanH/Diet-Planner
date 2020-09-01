@@ -31,11 +31,3 @@ def foodSearchResults(foodKeyword):
 
         results[listItem['food']['label']] = (listItem['food']['nutrients']['ENERC_KCAL'], listItem['food']['category'])
     return results
-
-# data = {"quantity": 1,
-#       "measureURI": "http://www.edamam.com/ontologies/edamam.owl#Measure_unit",
-#        "foodId": "food_bnbh4ycaqj9as0a9z7h9xb2wmgat"}
-# data_json = json.dumps(data)
-# headers = {'Content-type': 'application/json'}
-# response = requests.post('https://api.edamam.com/api/food-database/v2/nutrients?app_id=1d03b458&app_key=58af9c03362751552e052ce7b7720a61', data=data_json, headers=headers)
-# print(response)
